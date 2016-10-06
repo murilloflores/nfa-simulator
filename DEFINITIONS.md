@@ -19,7 +19,7 @@ The definition of computation on this simulator is very similar to the formal de
 2. *ri+1* ∈ "delta"["*ri*"]["*yi+1*"], for *i=0,...,m-1*, and
 3. *rm* ∈ "F"
 
-An not-so-formal definitino would be:
+An not-so-formal definition would be:
 - The computation start with the call of the ```compute``` method, with the given string.
 - The ```compute``` method validates the string, to check if it is valid according to the alphabet on the definition, and then call ```accept```.
 - ```accept``` is a recursive method that receives an state and a string as arguments and:
