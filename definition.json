@@ -17,5 +17,6 @@
 			"1": ["q4"]
 		}
 	},
-	"f": ["q4"]
+	"f": ["q4"],
+	"informal_definition": "Accepts all strings that contain either 101 or 11 as a substring"
 }
