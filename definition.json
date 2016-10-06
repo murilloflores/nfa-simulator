@@ -1,5 +1,5 @@
 {
-	"q0": "q1",
+	"sigma": ["1", "0"],
 	"delta": {
 		"q1": {
 			"0": ["q1"],
@@ -17,6 +17,7 @@
 			"1": ["q4"]
 		}
 	},
+	"q0": "q1",
 	"f": ["q4"],
 	"informal_definition": "Accepts all strings that contain either 101 or 11 as a substring"
 }

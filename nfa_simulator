@@ -9,7 +9,16 @@ class NondeterministicFiniteAutomata(object):
 		self.definition = definition
 
 	def compute(self, string):
+		if not self.valid_string(string):
+			raise Exception('String not valid according with automata definition')
+
 		return self.accept(self.start_state(), string)
+
+	def valid_string(self, string):
+		string_set = set(string)
+		alphabet_set = set(self.alphabet())
+
+		return string_set.issubset(alphabet_set)
 
 	def accept(self, state, string):
 		if(len(string) == 0):
@@ -34,6 +43,9 @@ class NondeterministicFiniteAutomata(object):
 		return next_states
 
 	# Auxiliar methods
+
+	def alphabet(self):
+		return self.definition['sigma']
 
 	def start_state(self):
 		return self.definition['q0']
