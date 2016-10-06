@@ -24,13 +24,13 @@ Let N be an NFA defined as described above and *w* be a string over the alphabet
 An **not-so-formal** definition would be:
 
 - The computation start with the call of the ```compute``` method, with the given string.
-- The ```compute``` method validates the string, to check if it is valid according to the alphabet on the definition, and then call ```accept```.
+- The ```compute``` method validates the string, to check if it is valid according to the alphabet on the definition, and then call ```accept``` passing the start state defined in "q0" and the string as arguments.
 - ```accept``` is a recursive method that receives an state and a string as arguments and:
 	- Returns **true** if the string is empty and the state is in the set of final states;
 	- Grabs the first char of the string and then the possible next states, according to the definition.
-		- The possible next states are the states in "delta"["state"]["char"] appended to "delta"["possible next state"]["epsilon"] for every possible next state.
+		- The possible next states are the states in "delta"["state"]["char"] appended to "delta"["next state"]["epsilon"] for every next state in "delta"["state"]["char"].
 	- Call ```itself``` again with each possible next state and the string from the second char to the end as parameters.
-	- Returns **true** if any of these calls also return**true**.
+	- Returns **true** if any of these calls also return **true**.
 	- Return **false** otherwise.
 
 - The value returned by ```accept``` is the result of the computation.
