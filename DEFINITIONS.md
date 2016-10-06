@@ -1,15 +1,15 @@
 ## Definition
 
-To run on this simulator a **nondeterministic finite automata** must be defined as a json object with the following keys and values:
+To run on this simulator a nondeterministic finite automata must be defined as a json object with the following keys (left) and values (right):
 
-1. "Q": Array os states,
-2. "sigma": Array of characters composing the alphabet,
-3. "delta": A json object, representing the transition function as follows:
-	- Every key in "delta" represents an state "S" in "Q". Every value is a json object representing the possible transitions from the state "S", as follows:
-		- Every key in "delta"["S"] represents a character "char" that must be read from input, or "epsilon" meaning the empty string;
-		- The value is an Array of the states that are reached being on state "S" and reading "char" or "epsilon"
-4. "q0": String representing the start state
-5. "F": Array of Strings, representing the accept states
+1. Q: Array os states,
+2. sigma: Array of characters composing the alphabet,
+3. delta: A json object, representing the transition function as follows:
+	- Every key in delta represents an state S in Q. Every value is a json object representing the possible transitions from the state S, as follows:
+		- Every key in delta[S] represents a character "char" that must be read from input, or "epsilon" meaning the empty string;
+		- The value is an Array of the states that are reached being on state S and reading "char" or "epsilon"
+4. q0: String representing the start state
+5. F: Array of Strings, representing the accept states
 
 ## Computation
 
