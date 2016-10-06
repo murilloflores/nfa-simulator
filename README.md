@@ -4,6 +4,7 @@ Nondeterministic finite automata simulator..
 ## Definition
 
 To run on this simulator a **nondeterministic finite automata** must be defined as a json object with the following keys and values:
+
 1. "Q": Array os states,
 2. "sigma": Array of characters composing the alphabet,
 3. "delta": A json object, representing the transition function as follows:
