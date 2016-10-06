@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 import sys
 import json
 
@@ -24,7 +26,7 @@ class NondeterministicFiniteAutomata(object):
 
 	def possible_next_states(self, state, char):
 		next_states = []
-		
+
 		for next_state in self.transition(state, char):
 			next_states.append(next_state)
 			next_states.extend(self.transition(next_state, 'epsilon'))
