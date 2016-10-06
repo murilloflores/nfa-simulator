@@ -21,10 +21,11 @@ The definition of computation on this simulator is very similar to the formal de
 
 An not-so-formal definitino would be:
 - The computation start with the call of the ```compute``` method, with the given string.
-- The ```compute``` method validates the string, to check if it is valid according to the alphaber on the definition, and then call ```accept```.
+- The ```compute``` method validates the string, to check if it is valid according to the alphabet on the definition, and then call ```accept```.
 - ```accept``` is a recursive method that receives an state and a string as arguments and:
 	- Returns **true** if the string is empty and the state is in the set of final states;
-	- Grabs the first char of the string and then the possible next states, according to the definition(delta[char]).
-	- Call itself again with each possible next state and the string from the second char to the end as parameters.
-	- Returns **true** if any of this calls also return true.
+	- Grabs the first char of the string and then the possible next states, according to the definition.
+		- The possible next states are the states in "delta"["state"]["char"] appended to "delta"["possible next state"]["epsilon"] for every possible next state.
+	- Call ```itself``` again with each possible next state and the string from the second char to the end as parameters.
+	- Returns **true** if any of these calls also return**true**.
 	- Return **false** otherwise.
