@@ -7,10 +7,18 @@ class NondeterministicFiniteAutomata(object):
 
 	def __init__(self, definition):
 		self.definition = definition
+		self.validate_transition_function()
+
+	def validate_transition_function(self):
+		transition_function_states_set = set(self.transition_function_states())
+		states_set = set(self.states())
+
+		if not transition_function_states_set.issubset(states_set):
+			raise Exception('The transition function contains states that are not on the states definition.')
 
 	def compute(self, string):
 		if not self.valid_string(string):
-			raise Exception('String not valid according with automata definition')
+			raise Exception('String not valid according with automata definition.')
 
 		return self.accept(self.start_state(), string)
 
@@ -43,6 +51,12 @@ class NondeterministicFiniteAutomata(object):
 		return next_states
 
 	# Auxiliar methods
+
+	def transition_function_states(self):
+		return self.definition['delta'].keys()
+
+	def states(self):
+		return self.definition['Q']
 
 	def alphabet(self):
 		return self.definition['sigma']
