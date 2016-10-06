@@ -13,7 +13,7 @@ To run on this simulator a **nondeterministic finite automata** must be defined 
 
 ## Computation
 
-The definition of computation on this simulator is very similar to the formal definition of computation on a **nondeterministic finite automata**, being:
+A **formal definition** of computation on this simulator is very similar to the formal definition of computation on a nondeterministic finite automata, being:
 
 Let N be an NFA defined as described above and *w* be a string over the alphabet "sigma". We say that N accepts *w* if we can write *w* as *w* = *y1y2y3...ym* where each *yi* is a member of "sigma" or "epsilon" and a sequence of states *r0,r1,r2...rm* exists in *Q* with three conditions:
 
@@ -21,7 +21,7 @@ Let N be an NFA defined as described above and *w* be a string over the alphabet
 2. *ri+1* ∈ "delta"["*ri*"]["*yi+1*"], for *i=0,...,m-1*, and
 3. *rm* ∈ "F"
 
-An not-so-formal definition would be:
+An **not-so-formal** definition would be:
 
 - The computation start with the call of the ```compute``` method, with the given string.
 - The ```compute``` method validates the string, to check if it is valid according to the alphabet on the definition, and then call ```accept```.
