@@ -9,24 +9,9 @@ class NondeterministicFiniteAutomata(object):
 		self.definition = definition
 		self.validate_transition_function()
 
-	def validate_transition_function(self):
-		transition_function_states_set = set(self.transition_function_states())
-		states_set = set(self.states())
-
-		if not transition_function_states_set.issubset(states_set):
-			raise Exception('The transition function contains states that are not on the states definition.')
-
 	def compute(self, string):
-		if not self.valid_string(string):
-			raise Exception('String not valid according with automata definition.')
-
+		self.validate_string(string)
 		return self.accept(self.start_state(), string)
-
-	def valid_string(self, string):
-		string_set = set(string)
-		alphabet_set = set(self.alphabet())
-
-		return string_set.issubset(alphabet_set)
 
 	def accept(self, state, string):
 		if(len(string) == 0):
@@ -49,6 +34,25 @@ class NondeterministicFiniteAutomata(object):
 			next_states.extend(self.transition(next_state, 'epsilon'))
 
 		return next_states
+
+	# Validation function
+
+	def validate_transition_function(self):
+		transition_function_states_set = set(self.transition_function_states())
+		states_set = set(self.states())
+
+		if not transition_function_states_set.issubset(states_set):
+			raise Exception('The transition function contains states that are not on the states definition.')
+
+	def validate_string(self, string):
+		if not self.valid_string(string):
+			raise Exception('String not valid according with automata definition.')
+
+	def valid_string(self, string):
+		string_set = set(string)
+		alphabet_set = set(self.alphabet())
+
+		return string_set.issubset(alphabet_set)
 
 	# Auxiliar methods
 
