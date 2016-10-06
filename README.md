@@ -1,2 +1,2 @@
 # nfa-simulator
-Nondeterministic finite automada simulator
+Nondeterministic finite automata simulator
