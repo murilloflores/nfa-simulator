@@ -15,10 +15,14 @@ class NondeterministicFiniteAutomata(object):
 
 	def accept(self, state, string, forbidden_transitions=[]):
 		if(len(string) == 0):
-			# Somente uma transicao?
-			for nex_state in self.transition(state, 'epsilon') + [state]:
-				if self.is_final_state(nex_state):
+			if self.is_final_state(state):
 					return True
+
+			if (state, 'epsilon') not in forbidden_transitions:
+				for next_state in self.transition(state, 'epsilon'):
+					forbidden_transitions.append((state, 'epsilon'))
+					if self.accept(next_state, string, forbidden_transitions):
+						return True
 			return False
 
 		char = string[0]
