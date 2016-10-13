@@ -13,27 +13,30 @@ class NondeterministicFiniteAutomata(object):
 		self.validate_string(string)
 		return self.accept(self.start_state(), string)
 
-	def accept(self, state, string):
+	def accept(self, state, string, forbidden_transitions=[]):
 		if(len(string) == 0):
-			return self.is_final_state(state)
+			# Somente uma transicao?
+			for nex_state in self.transition(state, 'epsilon') + [state]:
+				if self.is_final_state(nex_state):
+					return True
+			return False
 
 		char = string[0]
 		remaining_string = string[1:]
 
-		for next_state in self.possible_next_states(state, char):
-			if self.accept(next_state, remaining_string):
+		# First try without epsilon transitions
+		for next_state in self.transition(state, char):
+			if self.accept(next_state, remaining_string, []):
 				return True
 
+		# Didn't worked, now try with epsilon transitions
+		if (state, 'epsilon') not in forbidden_transitions:
+			for next_state in self.transition(state, 'epsilon'):
+				forbidden_transitions.append((state, 'epsilon'))
+				if self.accept(next_state, string, forbidden_transitions):
+					return True
+
 		return False
-
-	def possible_next_states(self, state, char):
-		next_states = []
-
-		for next_state in self.transition(state, char):
-			next_states.append(next_state)
-			next_states.extend(self.transition(next_state, 'epsilon'))
-
-		return next_states
 
 	# Validation function
 
