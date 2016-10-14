@@ -18,19 +18,13 @@ A **formal definition** of computation on this simulator is very similar to the 
 Let N be an NFA defined as described above and *w* be a string over the alphabet "sigma". We say that N accepts *w* if we can write *w* as *w* = *y1y2y3...ym* where each *yi* is a member of "sigma" or "epsilon" and a sequence of states *r0,r1,r2...rm* exists in *Q* with three conditions:
 
 1. *r0* = *q0*
-2. *ri+1* ∈ "delta"["*ri*"]["*yi+1*"], for *i=0,...,m-1*, and
-3. *rm* ∈ "F"
+2. *ri+1* ∈ "delta"["*ri*"]["*yi+1*"], for *i=0,...,m-1*, or *ri+1* ∈ "delta"["*rn*"]["*yi+1*"] for some *n* such that *rj+1* ∈ "delta"["*rj*"]["epsilon"], for *j=0...n-1*
+3. *rm* ∈ "F" or ∃ *rn* ∈ "F" such thath *rm+1* ∈ "delta"["*rm*"]["epsilon"], for *j=rm...rn*
 
-An **not-so-formal** definition would be:
 
-- The computation start with the call of the ```compute``` method, with the given string.
-- The ```compute``` method validates the string, to check if it is valid according to the alphabet on the definition, and then call ```accept``` passing the start state defined in "q0" and the string as arguments.
-- ```accept``` is a recursive method that receives an state and a string as arguments and:
-	- Returns **true** if the string is empty and the state is in the set of final states;
-	- Grabs the first char of the string and then the possible next states, according to the definition.
-		- The possible next states are the states in "delta"["state"]["char"] appended to "delta"["next state"]["epsilon"] for every next state in "delta"["state"]["char"].
-	- Call ```itself``` again with each possible next state and the string from the second char to the end as parameters.
-	- Returns **true** if any of these calls also return **true**.
-	- Return **false** otherwise.
+## Pergunta do professor 
 
-- The value returned by ```accept``` is the result of the computation.
+Para que o meu simulador aceitasse o autômato descrito tive que alterar duas coisas nele e na descrição da computação acima - isso para que as epsilon transições pudessem ser levadas em conta mesmo sem nenhum caracter ter sido lido:
+
+1ª: Além de verificar se o estado em que se está ao terminar de ler a string é final, considerar também se qualquer estado atingível apenas por epsilon-transições a partir de tal estado é final. Em qualquer um dos casos o autômato deve aceitar a String.
+2º: Depois de verificar que nenhuma das transições a partir de um estado lendo caracteres resultou em uma aceitação (não se chegou ao final da string em estado final ou estado que pode alcançar estado final a partir apenas de epsilon-transições), realizar as epsilon-transições desse estado e realizá-las, enviando a mesma string (sem ler nada) para o teste a partir de cada estado alcançável usando apenas uma epsilon-transição. Nesse caso, porém, a epsilon-transição usada é "salva" (enviada como parâmetro na recursão) para que a mesma não possa mais ser usada até que um caracter seja lido. Isso é feito para evitar que a computação entre em loop.
